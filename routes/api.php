@@ -4,6 +4,8 @@ use App\Http\Controllers\CategoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\ProductController;
+
 
 
 /*
@@ -29,6 +31,14 @@ Route::get('/categories',[CategoryController::class,'index']);
 Route::get('/categories/{id}',[CategoryController::class,'show']);
 Route::patch('/categories/{id}',[CategoryController::class,'update']);
 Route::delete('/categories/{id}',[CategoryController::class,'delete']);
+Route::post('/products',[ProductController::class,'store']);
+Route::get('/products',[ProductController::class,'index']);
+Route::get('/products/{id}',[ProductController::class,'show']);
+Route::patch('/products/{id}',[ProductController::class,'update']);
+Route::delete('/products/{id}',[ProductController::class,'delete']);
+
+
+
 
 
 
