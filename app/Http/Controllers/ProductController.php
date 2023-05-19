@@ -44,15 +44,37 @@ public function index(Request $request){
         'data'=> $products,
     ]);
 }
-public function show(Request $request, $id)
+public function show(Request $request, $userId, $categoryId)
 {
-    $products = Product::where('category_id', $id)->get();
+    $products = Product::where('category_id', $categoryId)->get();
+
+    // Find the user
+    $user = User::find($userId);
+
+    // Check if the user exists
+    if (!$user) {
+        return response()->json([
+            'status' => false,
+            'message' => 'User not found.',
+            'data' => null,
+        ], 404);
+    }
+
+    // Retrieve the favorite products for the user
+    $favoriteProducts = $user->favorites->pluck('id')->toArray();
+
+    // Loop through each product and add 'favorited' property
+    foreach ($products as $product) {
+        $product->favorited = in_array($product->id, $favoriteProducts);
+    }
+
     return response()->json([
         'status' => true,
         'message' => 'Products found.',
         'data' => $products,
     ]);
 }
+
 
     public function update(Request $request,$id){
         $data = $request->validate([

@@ -33,7 +33,7 @@ Route::patch('/categories/{id}',[CategoryController::class,'update']);
 Route::delete('/categories/{id}',[CategoryController::class,'delete']);
 Route::post('/products',[ProductController::class,'store']);
 Route::get('/products',[ProductController::class,'index']);
-Route::get('/products/{id}',[ProductController::class,'show']);
+Route::get('/products/{userId}/{categoryId}',[ProductController::class,'show']);
 Route::patch('/products/{id}',[ProductController::class,'update']);
 Route::delete('/products/{id}',[ProductController::class,'delete']);
 Route::post('/users/{userId}/products/{productId}/favorites', [ProductController::class, 'addToFavorites']);
