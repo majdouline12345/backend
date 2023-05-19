@@ -14,6 +14,6 @@ class Category extends Model
         'image',
     ];
     public function Products(){
-        return $this->hasMany('App\Category');
+        return $this->hasMany('App\Models\Category');
        }
 }

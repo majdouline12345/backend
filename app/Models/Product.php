@@ -16,6 +16,12 @@ class Product extends Model
    
     public $table='products';
     public function Category(){
-        return $this->belongsTo('App\Product');
+        return $this->belongsTo('App\Models\Product');
        }
+
+       public function users()
+{
+    return $this->belongsToMany(User::class, 'favorite_product_user', 'product_id', 'user_id');
+}
+
 }

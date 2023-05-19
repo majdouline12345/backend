@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Validator;
-
-
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -96,4 +95,102 @@ public function index(Request $request){
               ], 404);
         }
     }
+
+    public function addToFavorites(Request $request, $userId, $productId)
+{
+    // Find the user
+    $user = User::find($userId);
+
+    // Check if the user exists
+    if (!$user) {
+        return response()->json([
+            'status' => false,
+            'message' => 'User not found.',
+            'data' => null,
+        ], 404);
+    }
+
+    // Find the product
+    $product = Product::find($productId);
+
+    // Check if the product exists
+    if (!$product) {
+        return response()->json([
+            'status' => false,
+            'message' => 'Product not found.',
+            'data' => null,
+        ], 404);
+    }
+
+    // Add the product to the user's favorites
+    $user->favorites()->attach($product->id);
+
+    return response()->json([
+        'status' => true,
+        'message' => 'Product added to favorites.',
+        'data' => null,
+    ]);
+}
+public function removeFromFavorites(Request $request, $userId, $productId)
+{
+    // Find the user
+    $user = User::find($userId);
+
+    // Check if the user exists
+    if (!$user) {
+        return response()->json([
+            'status' => false,
+            'message' => 'User not found.',
+            'data' => null,
+        ], 404);
+    }
+
+    // Find the product
+    $product = Product::find($productId);
+
+    // Check if the product exists
+    if (!$product) {
+        return response()->json([
+            'status' => false,
+            'message' => 'Product not found.',
+            'data' => null,
+        ], 404);
+    }
+
+    // Remove the product from the user's favorites
+    $user->favorites()->detach($product->id);
+
+    return response()->json([
+        'status' => true,
+        'message' => 'Product removed from favorites.',
+        'data' => null,
+    ]);
+}
+
+public function getFavoriteProducts($userId)
+{
+    // Find the user
+    $user = User::find($userId);
+
+    // Check if the user exists
+    if (!$user) {
+        return response()->json([
+            'status' => false,
+            'message' => 'User not found.',
+            'data' => null,
+        ], 404);
+    }
+
+    // Get the favorite products for the user
+    $favoriteProducts = $user->favorites;
+
+    return response()->json([
+        'status' => true,
+        'message' => 'Favorite products retrieved.',
+        'data' => $favoriteProducts,
+    ]);
+}
+
+
+
 }

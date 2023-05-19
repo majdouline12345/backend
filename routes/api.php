@@ -36,6 +36,9 @@ Route::get('/products',[ProductController::class,'index']);
 Route::get('/products/{id}',[ProductController::class,'show']);
 Route::patch('/products/{id}',[ProductController::class,'update']);
 Route::delete('/products/{id}',[ProductController::class,'delete']);
+Route::post('/users/{userId}/products/{productId}/favorites', [ProductController::class, 'addToFavorites']);
+Route::delete('/users/{userId}/products/{productId}/favorites', [ProductController::class, 'removeFromFavorites']);
+Route::get('/users/{userId}/favorites', [ProductController::class, 'getFavoriteProducts']);
 
 
 
