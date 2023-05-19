@@ -65,7 +65,7 @@ public function login(Request $request)
         return response()->json([
             'message' => 'Authentication failed',
             'erreur' => 'Invalid credentials',
-        ], 401);
+        ], 200);
     }
 }
 }
