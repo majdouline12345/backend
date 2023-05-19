@@ -44,14 +44,16 @@ public function index(Request $request){
         'data'=> $products,
     ]);
 }
-    public function show(Request $request,$id){
-        $product = Product::find($id);
-        return response()->json([
-            'status'=>true,
-            'message'=>'product found.',
-            'data'=> $product,
-          ]);
-    }
+public function show(Request $request, $id)
+{
+    $products = Product::where('category_id', $id)->get();
+    return response()->json([
+        'status' => true,
+        'message' => 'Products found.',
+        'data' => $products,
+    ]);
+}
+
     public function update(Request $request,$id){
         $data = $request->validate([
             'id-category'=>'required|integer|max:255',
